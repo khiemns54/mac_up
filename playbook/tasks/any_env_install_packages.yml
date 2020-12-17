@@ -1,0 +1,18 @@
+---
+- name: Check {{ package.name }}
+  shell: "anyenv versions | grep : | sed 's/://g'"
+  register: installed_versions
+- name: Install {{ package.name }}
+  shell: anyenv install {{ package.name }} && exec $SHELL -l
+  when: package.name not in installed_versions.stdout_lines 
+- name: Install verions
+  include: ./any_env_install_versions.yml
+  with_items: "{{ package.versions }}"
+  loop_control:
+    loop_var: version
+  vars:
+    name: "{{ package.name }}" 
+- name: Set first item as default
+  shell: "{{ package.name}} global {{ package.versions[0] }}"
+  when: ( package.versions | length ) > 0
+

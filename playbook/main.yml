@@ -1,0 +1,17 @@
+---
+- hosts: all
+  vars_files:
+    - default.config.yml
+  roles:
+    - role: geerlingguy.homebrew
+      tags: ['homebrew']
+    - role: sicruse.powerline-fonts
+      tags: ['powerline']
+  tasks:
+    - include_tasks: tasks/ansible-setup.yml
+    - include_tasks: tasks/sudoers.yml
+    - include_tasks: tasks/zsh.yml
+    - include_tasks: tasks/dotfiles.yml
+    - include_tasks: tasks/vim.yml
+    - include_tasks: tasks/anyenv.yml
+    - include_tasks: tasks/terminal.yml

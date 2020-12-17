@@ -1,0 +1,23 @@
+---
+- stat:
+    path: ~/.anyenv
+  register: anyenv_is_installed
+- name: install anyenv
+  block:
+    - git:
+        repo: https://github.com/riywo/anyenv
+        dest: ~/.anyenv
+  when: anyenv_is_installed.stat.exists == false
+- name: update anyenv
+  shell: cd ~/.anyenv && git fetch && git rebase origin master
+  register: git_messages
+  changed_when: git_messages.stdout != "Current branch master is up to date."
+- name: init anyenv
+  shell: yes | anyenv install --init https://github.com/anyenv/anyenv-install.git
+  ignore_errors: yes
+- name: anyenv install packages
+  include: ./any_env_install_packages.yml
+  with_items: "{{ anyenv.packages }}"
+  loop_control:
+    loop_var: package
+

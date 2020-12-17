@@ -1,0 +1,5 @@
+---
+- name: Vim Install plugin
+  shell: vi +PlugInstall +qall &
+
+

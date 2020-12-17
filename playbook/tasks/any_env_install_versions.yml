@@ -1,0 +1,9 @@
+---
+- name: Check {{ name }} {{ version }}
+  shell: |
+    {{ name }} versions | grep -Eo '(\d+\.)+\d+'
+  register: installed_versions
+  ignore_errors: true
+- name: Install {{ name }} {{ version }}
+  shell: "{{ name }} install {{ version }} && exec $SHELL -l"
+  when: installed_versions.rc == 1 or version not in installed_versions.stdout_lines 

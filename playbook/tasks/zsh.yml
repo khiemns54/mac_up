@@ -1,0 +1,16 @@
+---
+- name: Install oh my zsh
+  git:
+    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+    dest: "~/.oh-my-zsh"
+    update: yes
+    force: yes
+  become: false
+- name: Install fzf
+  shell: type fzf
+  register: check_fzf
+- name: Install fzf
+  shell: yes | $(brew --prefix)/opt/fzf/install
+  when: check_fzf.rc == 1
+
+

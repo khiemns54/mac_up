@@ -1,0 +1,67 @@
+---
+downloads: ~/.ansible-downloads/
+
+configure_terminal: true
+
+configure_sudoers: true
+sudoers_custom_config: |
+  # Allow users in admin group to use sudo with no password.
+  %admin ALL=(ALL) NOPASSWD: ALL
+
+dotfiles:
+  repo: https://github.com/khiemns54/dotfiles.git
+  repo_local_destination: ~/.dotfiles
+  home: "~"
+  files:
+    - .zshrc
+    - .zshenv
+    - .vimrc
+    - .tmux.conf
+    - .config/nvim/init.vim
+
+homebrew_installed_packages:
+  - ctags
+  - openssl
+  - git
+  - gnupg
+  - pkg-config
+  - lastpass-cli
+  - mysql@5.7
+  - redis
+  - tig
+  - tmux
+  - tree
+  - unrar
+  - vim
+  - wget
+  - yarn
+  - zlib
+  - neovim
+  - readline
+  - fzf
+  - curl
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - opera
+  - sequel-pro
+  - postman
+
+anyenv:
+  packages:
+    - name: rbenv
+      versions: 
+        - 2.6.6
+    - name: pyenv
+      versions:
+        - 3.7.9
+        - 2.7.18
+    - name: nodenv
+      versions:
+        - 13.2.0
+    - name: goenv
+      versions: []

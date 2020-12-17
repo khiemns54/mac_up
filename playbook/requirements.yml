@@ -1,0 +1,4 @@
+---
+- name: geerlingguy.homebrew
+- name: sicruse.powerline-fonts
+
